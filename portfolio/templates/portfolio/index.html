@@ -1,0 +1,220 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ content.meta_description }}">
+    <meta name="theme-color" content="#e8e0d2">
+    <title>{{ content.page_title }}</title>
+    <link rel="stylesheet" href="{% static 'portfolio/css/styles.css' %}?v=4">
+    <script src="{% static 'portfolio/js/main.js' %}?v=2" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">{{ content.skip_link_label }}</a>
+
+    <header class="site-header" id="top">
+        <a class="logo" href="#top" aria-label="{{ content.brand_name }} home">
+            <span>{{ content.brand_name }}</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" data-open-label="{{ content.menu_open_label }}" data-close-label="{{ content.menu_close_label }}">{{ content.menu_open_label }}</button>
+
+        <nav class="main-nav" id="main-nav" aria-label="Primary navigation">
+            <a href="#work">{{ content.nav_work }}</a>
+            <a href="#services">{{ content.nav_services }}</a>
+            <a href="#about">{{ content.nav_about }}</a>
+            <a href="#process">{{ content.nav_process }}</a>
+            <a href="#contact">{{ content.nav_contact }}</a>
+        </nav>
+
+        <a class="ink-button header-cta" href="#contact">{{ content.header_cta }} <span>↗</span></a>
+    </header>
+
+    <main id="main">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <p class="index-note">{{ content.hero_index }}</p>
+                <h1 id="hero-title">
+                    <span>{{ content.hero_line_1 }}</span>
+                    <span class="stripe stripe-yellow">{{ content.hero_line_2 }}</span>
+                    <span>{{ content.hero_line_3 }}</span>
+                    <span class="stripe stripe-red">{{ content.hero_line_4 }}</span>
+                </h1>
+                <p class="hero-intro">{{ content.hero_intro }}</p>
+                <a class="ink-button" href="#work">{{ content.hero_cta }} <span>→</span></a>
+            </div>
+
+            <div class="hero-visual" aria-label="{{ content.hero_image_alt }}">
+                <div class="mustard-slab" aria-hidden="true"></div>
+                <div class="portrait-window">
+                    <img src="{% static 'portfolio/images/reference-hero.jpg' %}" alt="{{ content.hero_image_alt }}">
+                </div>
+                <p class="role-tag">{{ content.hero_role|linebreaksbr }}</p>
+                <div class="attention-note" aria-hidden="true"><span>△</span> {{ content.hero_attention }}</div>
+                <div class="dot-matrix" aria-hidden="true"></div>
+            </div>
+
+            <div class="target-mark" aria-hidden="true"><i></i><b></b></div>
+            <div class="scribble" aria-hidden="true">////</div>
+        </section>
+
+        <section class="service-ribbon" id="services" aria-labelledby="services-title">
+            <div class="ribbon-intro">
+                <span class="asterisk" aria-hidden="true">✳</span>
+                <h2 id="services-title">{{ content.services_heading|linebreaksbr }} <em>{{ content.services_highlight }}</em></h2>
+            </div>
+            <article class="service-item">
+                <span class="service-icon">▶</span>
+                <h3>{{ content.service_1_title }}</h3>
+                <p>{{ content.service_1_description|linebreaksbr }}</p>
+            </article>
+            <article class="service-item">
+                <span class="service-icon">T</span>
+                <h3>{{ content.service_2_title }}</h3>
+                <p>{{ content.service_2_description|linebreaksbr }}</p>
+            </article>
+            <article class="service-item">
+                <span class="service-icon">✧</span>
+                <h3>{{ content.service_3_title }}</h3>
+                <p>{{ content.service_3_description|linebreaksbr }}</p>
+            </article>
+        </section>
+
+        <section class="work-section" id="work" aria-labelledby="work-title">
+            <div class="section-heading">
+                <p class="index-note">{{ content.work_index }}</p>
+                <h2 id="work-title">{{ content.work_title_1 }}<br><span>{{ content.work_title_2 }}</span></h2>
+                <p>{{ content.work_intro }}</p>
+            </div>
+
+            <div class="projects-grid">
+                {% if projects %}
+                    {% for project in projects %}
+                    <article class="project-card">
+                        <div class="project-card-topline">
+                            <span class="project-no">{{ forloop.counter|stringformat:"02d" }}</span>
+                            <span class="project-format">{{ content.work_format_label }}</span>
+                        </div>
+                        <div class="project-art project-video-frame">
+                            <iframe
+                                class="project-video"
+                                src="{{ project.youtube_embed_url }}"
+                                title="{{ project.title }}"
+                                loading="lazy"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen
+                            ></iframe>
+                        </div>
+                        <div class="project-meta">
+                            <h3>{{ project.title|upper }}</h3>
+                            {% if project.description %}<p>{{ project.description }}</p>{% endif %}
+                        </div>
+                    </article>
+                    {% endfor %}
+                {% else %}
+                    <p class="projects-empty">{{ content.work_empty_message }}</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="process-section" id="process" aria-labelledby="process-title">
+            <div class="process-marquee" aria-hidden="true">{{ content.process_marquee }}</div>
+            <div class="process-lead">
+                <p class="index-note">{{ content.process_index }}</p>
+                <h2 id="process-title">{{ content.process_title_1 }}<br><span>{{ content.process_title_2 }}</span></h2>
+                <p>{{ content.process_intro }}</p>
+            </div>
+            <ol class="process-list">
+                <li>
+                    <span>01</span>
+                    <h3>{{ content.process_1_title }}</h3>
+                    <p>{{ content.process_1_description }}</p>
+                </li>
+                <li>
+                    <span>02</span>
+                    <h3>{{ content.process_2_title }}</h3>
+                    <p>{{ content.process_2_description }}</p>
+                </li>
+                <li>
+                    <span>03</span>
+                    <h3>{{ content.process_3_title }}</h3>
+                    <p>{{ content.process_3_description }}</p>
+                </li>
+                <li>
+                    <span>04</span>
+                    <h3>{{ content.process_4_title }}</h3>
+                    <p>{{ content.process_4_description }}</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="about-section" id="about" aria-labelledby="about-title">
+            <div class="about-stamp" aria-hidden="true">{{ content.about_stamp|linebreaksbr }}</div>
+            <div class="about-copy">
+                <p class="index-note">{{ content.about_index }}</p>
+                <h2 id="about-title">{{ content.about_title_1 }}<br><span>{{ content.about_title_2 }}</span></h2>
+                <div class="about-text">
+                    <p>{{ content.about_paragraph_1 }}</p>
+                    <p>{{ content.about_paragraph_2 }}</p>
+                </div>
+            </div>
+            <dl class="stats">
+                <div><dt>{{ content.stat_1_value }}</dt><dd>{{ content.stat_1_label }}</dd></div>
+                <div><dt>{{ content.stat_2_value }}</dt><dd>{{ content.stat_2_label }}</dd></div>
+                <div><dt>{{ content.stat_3_value }}</dt><dd>{{ content.stat_3_label }}</dd></div>
+            </dl>
+        </section>
+
+        <section class="contact-section" id="contact" aria-labelledby="contact-title">
+            <div class="contact-copy">
+                <p class="index-note">{{ content.contact_index }}</p>
+                <h2 id="contact-title">{{ content.contact_title_1 }}<br><span>{{ content.contact_title_2 }}</span></h2>
+                <p>{{ content.contact_intro }}</p>
+                <div class="availability"><i></i> {{ content.availability_text }}</div>
+            </div>
+
+            <div class="booking-board">
+                <div class="tape" aria-hidden="true"></div>
+                <form class="contact-form" action="{% url 'portfolio:contact' %}" method="post" novalidate data-validation-message="{{ content.form_validation_message }}" data-sending-message="{{ content.form_sending_message }}" data-error-message="{{ content.form_error_message }}">
+                    {% csrf_token %}
+                    <div class="form-heading">
+                        <span>{{ content.form_eyebrow }}</span>
+                        <strong>{{ content.form_heading|linebreaksbr }}</strong>
+                    </div>
+                    <div class="form-grid">
+                        <label>
+                            <span>{{ content.form_name_label }}</span>
+                            <input type="text" name="name" autocomplete="name" required placeholder="{{ content.form_name_placeholder }}">
+                        </label>
+                        <label>
+                            <span>{{ content.form_email_label }}</span>
+                            <input type="email" name="email" autocomplete="email" required placeholder="{{ content.form_email_placeholder }}">
+                        </label>
+                        <label class="message-field">
+                            <span>{{ content.form_message_label }}</span>
+                            <textarea name="message" rows="6" required placeholder="{{ content.form_message_placeholder }}"></textarea>
+                        </label>
+                    </div>
+                    <div class="form-footer">
+                        <p class="form-status" role="status" aria-live="polite"></p>
+                        <button class="ink-button" type="submit">{{ content.form_submit_label }} <span>→</span></button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <a class="logo footer-logo" href="#top"><span>{{ content.brand_name }}</span></a>
+        <p>{{ content.footer_tagline|linebreaksbr }}</p>
+        <div class="footer-links">
+            <a href="mailto:{{ content.footer_email }}">{{ content.footer_email|upper }}</a>
+            <a href="{{ content.footer_link_1_url }}">{{ content.footer_link_1_label }}</a>
+            <a href="{{ content.footer_link_2_url }}">{{ content.footer_link_2_label }}</a>
+        </div>
+        <p>© <span data-year>2026</span> {{ content.copyright_text }}</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+[project]
+name = "rexa-portfolio"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = [
+    "Django==5.2.5",
+    "psycopg[binary]>=3.1,<4",
+]
+
+[tool.vercel.scripts]
+build = 'if [ -n "$DATABASE_URL" ]; then python manage.py migrate --noinput && python manage.py ensure_admin; fi'

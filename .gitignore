@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+db.sqlite3
+.venv/
+.python/
+.python-installer.exe
+.python-embed.zip
+venv/
+.env
+.vercel/
+staticfiles/
+media/
