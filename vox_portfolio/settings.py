@@ -18,7 +18,7 @@ if IS_VERCEL and "DJANGO_SECRET_KEY" not in os.environ:
     raise ImproperlyConfigured("DJANGO_SECRET_KEY must be set on Vercel.")
 DEBUG = os.environ.get("DJANGO_DEBUG", "0" if IS_VERCEL else "1") == "1"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".vercel.app"]
+ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS.extend(
     host.strip()
     for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
