@@ -11,6 +11,8 @@ class PortfolioTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "TURNING")
         self.assertContains(response, "BOOK")
+        self.assertNotContains(response, "I create videos and motion design")
+        self.assertNotContains(response, "PROCESS / PROCESS / PROCESS")
 
     def test_youtube_work_project_renders(self):
         WorkProject.objects.create(

@@ -7,7 +7,10 @@
     <meta name="description" content="{{ content.meta_description }}">
     <meta name="theme-color" content="#e8e0d2">
     <title>{{ content.page_title }}</title>
-    <link rel="stylesheet" href="{% static 'portfolio/css/styles.css' %}?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'portfolio/css/styles.css' %}?v=7">
     <script src="{% static 'portfolio/js/main.js' %}?v=2" defer></script>
 </head>
 <body>
@@ -41,7 +44,6 @@
                     <span>{{ content.hero_line_3 }}</span>
                     <span class="stripe stripe-red">{{ content.hero_line_4 }}</span>
                 </h1>
-                <p class="hero-intro">{{ content.hero_intro }}</p>
                 <a class="ink-button" href="#work">{{ content.hero_cta }} <span>→</span></a>
             </div>
 
@@ -61,23 +63,26 @@
 
         <section class="service-ribbon" id="services" aria-labelledby="services-title">
             <div class="ribbon-intro">
-                <span class="asterisk" aria-hidden="true">✳</span>
+                <p class="index-note">01 / CAPABILITIES</p>
                 <h2 id="services-title">{{ content.services_heading|linebreaksbr }} <em>{{ content.services_highlight }}</em></h2>
             </div>
             <article class="service-item">
-                <span class="service-icon">▶</span>
+                <span class="service-icon">01</span>
                 <h3>{{ content.service_1_title }}</h3>
                 <p>{{ content.service_1_description|linebreaksbr }}</p>
+                <span class="service-arrow" aria-hidden="true">→</span>
             </article>
             <article class="service-item">
-                <span class="service-icon">T</span>
+                <span class="service-icon">02</span>
                 <h3>{{ content.service_2_title }}</h3>
                 <p>{{ content.service_2_description|linebreaksbr }}</p>
+                <span class="service-arrow" aria-hidden="true">→</span>
             </article>
             <article class="service-item">
-                <span class="service-icon">✧</span>
+                <span class="service-icon">03</span>
                 <h3>{{ content.service_3_title }}</h3>
                 <p>{{ content.service_3_description|linebreaksbr }}</p>
+                <span class="service-arrow" aria-hidden="true">→</span>
             </article>
         </section>
 
@@ -120,7 +125,6 @@
         </section>
 
         <section class="process-section" id="process" aria-labelledby="process-title">
-            <div class="process-marquee" aria-hidden="true">{{ content.process_marquee }}</div>
             <div class="process-lead">
                 <p class="index-note">{{ content.process_index }}</p>
                 <h2 id="process-title">{{ content.process_title_1 }}<br><span>{{ content.process_title_2 }}</span></h2>

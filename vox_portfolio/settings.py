@@ -72,27 +72,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "vox_portfolio.wsgi.application"
 
-if os.environ.get("DATABASE_URL"):
-    database_url = urlparse(os.environ["DATABASE_URL"])
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": database_url.path.lstrip("/"),
-            "USER": unquote(database_url.username or ""),
-            "PASSWORD": unquote(database_url.password or ""),
-            "HOST": database_url.hostname,
-            "PORT": database_url.port or 5432,
-            "OPTIONS": dict(parse_qsl(database_url.query)),
-            "CONN_MAX_AGE": 0,
-        }
+from urllib.parse import urlparse, parse_qsl, unquote
+
+DATABASE_URL='postgresql://neondb_owner:npg_jh2K5aDoWvkE@ep-twilight-darkness-axz0wfda-pooler.c-4.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+
+tmpPostgres = urlparse(DATABASE_URL)
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": tmpPostgres.path.replace("/", ""),
+        "USER": unquote(tmpPostgres.username or ""),
+        "PASSWORD": unquote(tmpPostgres.password or ""),
+        "HOST": tmpPostgres.hostname,
+        "PORT": tmpPostgres.port or 5432,
+        "OPTIONS": dict(parse_qsl(tmpPostgres.query)),
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+}
+
 
 AUTH_PASSWORD_VALIDATORS = []
 
