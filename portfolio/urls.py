@@ -6,5 +6,6 @@ app_name = "portfolio"
 
 urlpatterns = [
     path("", views.index, name="home"),
+    path("3d/", views.experience, name="experience"),
     path("contact/", views.contact, name="contact"),
 ]

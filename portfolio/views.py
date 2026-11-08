@@ -17,6 +17,26 @@ def index(request):
     )
 
 
+def experience(request):
+    """The 3D version of the portfolio — same content, rendered with WebGL."""
+    content = SiteContent.load()
+    projects = [
+        {
+            "title": project.title,
+            "description": project.description,
+            "videoId": project.youtube_video_id,
+            "embed": project.youtube_embed_url,
+        }
+        for project in WorkProject.objects.all()
+        if project.youtube_video_id
+    ]
+    return render(
+        request,
+        "portfolio/experience.html",
+        {"content": content, "projects_data": projects},
+    )
+
+
 @require_POST
 def contact(request):
     content = SiteContent.load()

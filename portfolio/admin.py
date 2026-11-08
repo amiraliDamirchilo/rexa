@@ -46,7 +46,7 @@ class SiteContentAdmin(admin.ModelAdmin):
                     ("hero_line_1", "hero_line_2"),
                     ("hero_line_3", "hero_line_4"),
                     "hero_intro",
-                    "hero_cta",
+                    ("hero_cta", "hero_3d_cta"),
                     "hero_image_alt",
                     ("hero_role", "hero_attention"),
                 ),

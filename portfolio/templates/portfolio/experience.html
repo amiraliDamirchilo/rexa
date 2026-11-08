@@ -1,0 +1,147 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="{{ content.meta_description }}">
+    <meta name="theme-color" content="#F3F2EE">
+    <title>{{ content.brand_name }} — 3D Reel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'portfolio/css/experience.css' %}?v=2">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+    <script type="module" src="{% static 'portfolio/js/experience.js' %}?v=2"></script>
+</head>
+<body>
+    {{ projects_data|json_script:"projects-data" }}
+    <div id="xp-config" hidden
+         data-portrait="{% static 'portfolio/images/portrait.jpg' %}"
+         data-brand="{{ content.brand_name }}"
+         data-eyebrow="{{ content.form_eyebrow }}"
+         data-sa="{{ content.service_1_title }}" data-sad="{{ content.service_1_description }}"
+         data-sb="{{ content.service_2_title }}" data-sbd="{{ content.service_2_description }}"
+         data-sc="{{ content.service_3_title }}" data-scd="{{ content.service_3_description }}"
+         data-pa="{{ content.process_1_title }}" data-pb="{{ content.process_2_title }}"
+         data-pc="{{ content.process_3_title }}" data-pd="{{ content.process_4_title }}"
+         data-empty="{{ content.work_empty_message }}"></div>
+
+    <canvas class="webgl" aria-hidden="true"></canvas>
+
+    <div class="loader" aria-hidden="true">
+        <div class="loader__count"><span data-loader-pct>0</span><small>%</small></div>
+        <div class="loader__bar"><span></span></div>
+        <p class="loader__label">{{ content.brand_name }} / 3D REEL</p>
+        <div class="loader__wipe"></div>
+    </div>
+
+    <div class="grain" aria-hidden="true"></div>
+    <div class="progress" aria-hidden="true"><span></span></div>
+
+    <header class="xp-header">
+        <a class="logo" href="{% url 'portfolio:home' %}" data-transition aria-label="{{ content.brand_name }} — back to the main site">
+            <span class="logo__word">{{ content.brand_name }}</span><span class="logo__mark" aria-hidden="true"></span>
+        </a>
+        <a class="back2d" href="{% url 'portfolio:home' %}" data-transition><i aria-hidden="true">←</i> 2D</a>
+    </header>
+
+    <nav class="chapter-nav" aria-label="Chapters">
+        <button type="button" data-goto="0"><span>{{ content.brand_name }}</span></button>
+        <button type="button" data-goto="1"><span>{{ content.nav_services }}</span></button>
+        <button type="button" data-goto="2"><span>{{ content.nav_work }}</span></button>
+        <button type="button" data-goto="3"><span>{{ content.nav_process }}</span></button>
+        <button type="button" data-goto="4"><span>{{ content.nav_about }}</span></button>
+        <button type="button" data-goto="5"><span>{{ content.nav_contact }}</span></button>
+    </nav>
+
+    <main class="chapters">
+        <!-- 0 · HERO -->
+        <section class="chapter chapter--hero theme-light" data-chapter="0" aria-labelledby="xp-hero-title">
+            <p class="eyebrow"><span class="eyebrow__tick"></span>{{ content.hero_index }}</p>
+            <h1 class="hero-title" id="xp-hero-title">
+                <span class="hl"><span class="hl__in">{{ content.hero_line_1 }}</span></span>
+                <span class="hl hl--marker"><span class="hl__in">{{ content.hero_line_2 }}</span></span>
+                <span class="hl hl--serif"><span class="hl__in">{{ content.hero_line_3 }}</span></span>
+                <span class="hl hl--box"><span class="hl__in">{{ content.hero_line_4 }}</span></span>
+            </h1>
+            <p class="scroll-hint"><span class="scroll-hint__line"></span>SCROLL TO PLAY</p>
+        </section>
+
+        <!-- 1 · SERVICES -->
+        <section class="chapter chapter--top theme-light" data-chapter="1" aria-labelledby="xp-services-title">
+            <p class="eyebrow"><span class="eyebrow__tick"></span>01 / CAPABILITIES</p>
+            <h2 class="title-md" id="xp-services-title">{{ content.services_heading|linebreaksbr }} <em class="marker">{{ content.services_highlight }}</em></h2>
+        </section>
+
+        <!-- 2 · WORK -->
+        <section class="chapter chapter--top theme-dark" data-chapter="2" aria-labelledby="xp-work-title">
+            <p class="eyebrow"><span class="eyebrow__tick"></span>{{ content.work_index }}</p>
+            <h2 class="title-lg" id="xp-work-title">{{ content.work_title_1 }}<br><span class="outline">{{ content.work_title_2 }}</span></h2>
+            <p class="hint-bottom">{% if projects_data %}↻ SCROLL TO SPIN · CLICK A FRAME TO PLAY{% else %}{{ content.work_empty_message }}{% endif %}</p>
+        </section>
+
+        <!-- 3 · PROCESS -->
+        <section class="chapter chapter--split theme-yellow" data-chapter="3" aria-labelledby="xp-process-title">
+            <div>
+                <p class="eyebrow"><span class="eyebrow__tick"></span>{{ content.process_index }}</p>
+                <h2 class="title-lg" id="xp-process-title">{{ content.process_title_1 }}<br><span class="boxed">{{ content.process_title_2 }}</span></h2>
+            </div>
+            <ol class="step-card">
+                <li data-step="0"><b>01</b><h3>{{ content.process_1_title }}</h3><p>{{ content.process_1_description }}</p></li>
+                <li data-step="1"><b>02</b><h3>{{ content.process_2_title }}</h3><p>{{ content.process_2_description }}</p></li>
+                <li data-step="2"><b>03</b><h3>{{ content.process_3_title }}</h3><p>{{ content.process_3_description }}</p></li>
+                <li data-step="3"><b>04</b><h3>{{ content.process_4_title }}</h3><p>{{ content.process_4_description }}</p></li>
+            </ol>
+        </section>
+
+        <!-- 4 · ABOUT -->
+        <section class="chapter chapter--right theme-light" data-chapter="4" aria-labelledby="xp-about-title">
+            <p class="eyebrow"><span class="eyebrow__tick"></span>{{ content.about_index }}</p>
+            <h2 class="title-lg" id="xp-about-title">{{ content.about_title_1 }}<br><span class="marker">{{ content.about_title_2 }}</span></h2>
+            <p class="lede">{{ content.about_paragraph_1 }}</p>
+            <dl class="stats">
+                <div><dt data-count>{{ content.stat_1_value }}</dt><dd>{{ content.stat_1_label }}</dd></div>
+                <div><dt data-count>{{ content.stat_2_value }}</dt><dd>{{ content.stat_2_label }}</dd></div>
+                <div><dt data-count>{{ content.stat_3_value }}</dt><dd>{{ content.stat_3_label }}</dd></div>
+            </dl>
+        </section>
+
+        <!-- 5 · CONTACT -->
+        <section class="chapter chapter--left theme-dark" data-chapter="5" aria-labelledby="xp-contact-title">
+            <p class="eyebrow"><span class="eyebrow__tick"></span>{{ content.contact_index }}</p>
+            <h2 class="title-xl" id="xp-contact-title">{{ content.contact_title_1 }}<br><span class="marker">{{ content.contact_title_2 }}</span></h2>
+            <p class="lede lede--small">{{ content.contact_intro }}</p>
+            <div class="actions">
+                <a class="btn btn--yellow" href="{% url 'portfolio:home' %}#contact" data-transition><span>{{ content.form_submit_label }}</span><i aria-hidden="true">→</i></a>
+                <a class="mail" href="mailto:{{ content.footer_email }}">{{ content.footer_email|upper }}</a>
+            </div>
+        </section>
+    </main>
+
+    <div class="scroll-space" aria-hidden="true"></div>
+
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Video player" hidden>
+        <div class="modal__frame">
+            <button class="modal__close" type="button" aria-label="Close video">✕</button>
+            <div class="modal__screen"></div>
+            <p class="modal__title"></p>
+        </div>
+    </div>
+
+    <div class="fallback" hidden>
+        <p>Your browser can't run the 3D reel.</p>
+        <a class="btn btn--yellow" href="{% url 'portfolio:home' %}"><span>← BACK TO THE SITE</span></a>
+    </div>
+
+    <div class="page-wipe" aria-hidden="true"></div>
+</body>
+</html>

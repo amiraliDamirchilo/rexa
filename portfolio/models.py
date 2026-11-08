@@ -57,6 +57,10 @@ class WorkProject(models.Model):
         ordering = ["created_at", "id"]
 
     @property
+    def youtube_video_id(self):
+        return get_youtube_video_id(self.youtube_url) or ""
+
+    @property
     def youtube_embed_url(self):
         video_id = get_youtube_video_id(self.youtube_url)
         if not video_id:
@@ -102,6 +106,12 @@ class SiteContent(models.Model):
         default="I create videos and motion design that make complex ideas clear, engaging, and impossible to ignore.",
     )
     hero_cta = models.CharField(max_length=60, default="VIEW MY WORK")
+    hero_3d_cta = models.CharField(
+        "Hero 3D button",
+        max_length=60,
+        default="ENTER THE 3D REEL",
+        help_text="Button under the main hero button that opens the 3D experience.",
+    )
     hero_image_alt = models.CharField(
         max_length=180,
         default="Young video editor standing with folded arms",

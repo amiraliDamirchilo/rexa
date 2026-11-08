@@ -14,6 +14,23 @@ class PortfolioTests(TestCase):
         self.assertNotContains(response, "I create videos and motion design")
         self.assertNotContains(response, "PROCESS / PROCESS / PROCESS")
 
+    def test_homepage_links_to_3d_experience(self):
+        response = self.client.get(reverse("portfolio:home"))
+        self.assertContains(response, reverse("portfolio:experience"))
+        self.assertContains(response, "ENTER THE 3D REEL")
+
+    def test_3d_experience_renders_with_projects(self):
+        WorkProject.objects.create(
+            title="A Real Film",
+            description="A short-form editing project.",
+            youtube_url="https://youtube.com/shorts/GC-RhAd2zfw?si=test",
+        )
+        response = self.client.get(reverse("portfolio:experience"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "experience.js")
+        self.assertContains(response, "GC-RhAd2zfw")
+        self.assertContains(response, "TURNING")
+
     def test_youtube_work_project_renders(self):
         WorkProject.objects.create(
             title="A Real Film",
