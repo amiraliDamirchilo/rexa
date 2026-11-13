@@ -9,8 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'portfolio/css/experience.css' %}?v=2">
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'portfolio/css/experience.css' %}?v=3">
     <script type="importmap">
         {
             "imports": {
@@ -20,7 +22,7 @@
         }
     </script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-    <script type="module" src="{% static 'portfolio/js/experience.js' %}?v=2"></script>
+    <script type="module" src="{% static 'portfolio/js/experience.js' %}?v=3"></script>
 </head>
 <body>
     {{ projects_data|json_script:"projects-data" }}
@@ -79,7 +81,7 @@
         <!-- 1 · SERVICES -->
         <section class="chapter chapter--top theme-light" data-chapter="1" aria-labelledby="xp-services-title">
             <p class="eyebrow"><span class="eyebrow__tick"></span>01 / CAPABILITIES</p>
-            <h2 class="title-md" id="xp-services-title">{{ content.services_heading|linebreaksbr }} <em class="marker">{{ content.services_highlight }}</em></h2>
+            <h2 class="title-md" id="xp-services-title">{{ content.services_heading|linebreaksbr }}<br><em class="marker">{{ content.services_highlight }}</em></h2>
         </section>
 
         <!-- 2 · WORK -->
@@ -122,7 +124,8 @@
             <p class="lede lede--small">{{ content.contact_intro }}</p>
             <div class="actions">
                 <a class="btn btn--yellow" href="{% url 'portfolio:home' %}#contact" data-transition><span>{{ content.form_submit_label }}</span><i aria-hidden="true">→</i></a>
-                <a class="mail" href="mailto:{{ content.footer_email }}">{{ content.footer_email|upper }}</a>
+                <a class="mail" href="{{ content.footer_link_1_url }}" target="_blank" rel="noopener">{{ content.footer_link_1_label|upper }} ↗</a>
+                <a class="mail" href="{{ content.footer_link_2_url }}" target="_blank" rel="noopener">{{ content.footer_link_2_label|upper }} ↗</a>
             </div>
         </section>
     </main>

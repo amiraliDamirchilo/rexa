@@ -19,10 +19,12 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'portfolio/css/styles.css' %}?v=30">
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'portfolio/css/styles.css' %}?v=31">
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-    <script src="{% static 'portfolio/js/main.js' %}?v=30" defer></script>
+    <script src="{% static 'portfolio/js/main.js' %}?v=31" defer></script>
 </head>
 <body>
     <a class="skip-link" href="#main">{{ content.skip_link_label }}</a>
@@ -116,7 +118,7 @@
                 <div class="marquee__track">
                     <span>{{ content.service_1_title }}</span><i>✶</i>
                     <span>{{ content.service_2_title }}</span><i>✶</i>
-                    <span>{{ content.service_3_title }}</span><i>✶</i>
+                    {% if content.service_3_title %}<span>{{ content.service_3_title }}</span><i>✶</i>{% endif %}
                 </div>
             </div>
         </div>
@@ -125,7 +127,7 @@
         <section class="services" id="services" aria-labelledby="services-title">
             <div class="services__head">
                 <p class="eyebrow"><span class="eyebrow__tick"></span><span data-scramble-in>01 / CAPABILITIES</span></p>
-                <h2 id="services-title" class="scrub" data-scrub>{{ content.services_heading|linebreaksbr }} <em class="marker">{{ content.services_highlight }}</em></h2>
+                <h2 id="services-title" class="scrub" data-scrub>{{ content.services_heading|linebreaksbr }}<br><em class="marker">{{ content.services_highlight }}</em></h2>
             </div>
 
             <ol class="services__list">
@@ -141,12 +143,14 @@
                     <h3 class="svc__title" data-slide>{{ content.service_2_title }}</h3>
                     <p class="svc__desc">{{ content.service_2_description|linebreaksbr }}</p>
                 </li>
+                {% if content.service_3_title %}
                 <li class="svc" data-reveal>
                     <span class="svc__fill" aria-hidden="true"></span>
                     <span class="svc__no">03</span>
                     <h3 class="svc__title" data-slide>{{ content.service_3_title }}</h3>
                     <p class="svc__desc">{{ content.service_3_description|linebreaksbr }}</p>
                 </li>
+                {% endif %}
             </ol>
         </section>
 
@@ -306,9 +310,9 @@
         <div class="footer__top">
             <p class="footer__tagline">{{ content.footer_tagline|linebreaksbr }}</p>
             <div class="footer__links">
-                <a class="footer__mail" href="mailto:{{ content.footer_email }}">{{ content.footer_email|upper }}</a>
-                <a href="{{ content.footer_link_1_url }}"><span data-scramble>{{ content.footer_link_1_label }}</span> ↗</a>
-                <a href="{{ content.footer_link_2_url }}"><span data-scramble>{{ content.footer_link_2_label }}</span> ↗</a>
+                <a class="footer__social" href="{{ content.footer_link_1_url }}" target="_blank" rel="noopener"><span data-scramble>{{ content.footer_link_1_label }}</span> ↗</a>
+                <a class="footer__social" href="{{ content.footer_link_2_url }}" target="_blank" rel="noopener"><span data-scramble>{{ content.footer_link_2_label }}</span> ↗</a>
+                {% if content.footer_note %}<p class="footer__note">{{ content.footer_note }}</p>{% endif %}
             </div>
         </div>
         <div class="footer__word" aria-hidden="true" data-footer-word>{{ content.brand_name }}</div>

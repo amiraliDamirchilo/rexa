@@ -7,6 +7,9 @@ from django.db import models
 
 YOUTUBE_VIDEO_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{11}$")
 
+LINKEDIN_URL = "https://www.linkedin.com/in/reza-mohammadi-267827316"
+INSTAGRAM_URL = "https://www.instagram.com/rz_motions"
+
 
 def get_youtube_video_id(url):
     """Return the video ID from a supported YouTube URL, or None."""
@@ -86,7 +89,7 @@ class SiteContent(models.Model):
         default="VOX — video editor and motion designer turning information into attention.",
     )
     skip_link_label = models.CharField(max_length=80, default="Skip to content")
-    brand_name = models.CharField(max_length=40, default="VOX")
+    brand_name = models.CharField(max_length=40, default="RZ")
     menu_open_label = models.CharField(max_length=40, default="MENU")
     menu_close_label = models.CharField(max_length=40, default="CLOSE")
     nav_work = models.CharField(max_length=40, default="WORK")
@@ -124,24 +127,26 @@ class SiteContent(models.Model):
 
     services_heading = models.TextField(
         max_length=320,
-        default="I HELP BRANDS, CREATORS,\nAND COMPANIES TURN INFORMATION\nINTO CONTENT THAT",
+        default="I TELL STORIES THAT",
     )
-    services_highlight = models.CharField(max_length=100, default="GETS ATTENTION.")
-    service_1_title = models.CharField(max_length=80, default="VIDEO EDITING")
+    services_highlight = models.CharField(max_length=100, default="GET YOUR BRAND SEEN.")
+    service_1_title = models.CharField(max_length=80, default="ANY STYLE YOU NEED")
     service_1_description = models.TextField(
         max_length=240,
-        default="Clean cuts. Strong pacing.\nStories that flow.",
+        default="Podcast trailers, short-form video, Vox-style and full motion.",
     )
-    service_2_title = models.CharField(max_length=80, default="MOTION DESIGN")
+    service_2_title = models.CharField(max_length=80, default="STORYTELLING")
     service_2_description = models.TextField(
         max_length=240,
-        default="Bringing ideas to life\nwith purpose and style.",
+        default="Strong stories that help your brand get seen and remembered.",
     )
-    service_3_title = models.CharField(max_length=80, default="STORYTELLING")
-    service_3_description = models.TextField(
-        max_length=240,
-        default="Turning complex information\ninto clear, engaging stories.",
+    service_3_title = models.CharField(
+        max_length=80,
+        blank=True,
+        default="",
+        help_text="Optional. Leave empty to show only two services.",
     )
+    service_3_description = models.TextField(max_length=240, blank=True, default="")
 
     work_index = models.CharField(max_length=80, default="02 / SELECTED PROJECTS")
     work_title_1 = models.CharField(max_length=80, default="WORK THAT")
@@ -161,31 +166,31 @@ class SiteContent(models.Model):
         default="PROCESS / PROCESS / PROCESS / PROCESS /",
     )
     process_index = models.CharField(max_length=80, default="03 / THE METHOD")
-    process_title_1 = models.CharField(max_length=80, default="CHAOS IN.")
-    process_title_2 = models.CharField(max_length=80, default="CLARITY OUT.")
+    process_title_1 = models.CharField(max_length=80, default="SEND IT RAW.")
+    process_title_2 = models.CharField(max_length=80, default="GET IT READY.")
     process_intro = models.TextField(
         max_length=400,
-        default="Every good edit starts with one question: what does the audience need to feel next?",
+        default="Here’s how I edit your video.",
     )
-    process_1_title = models.CharField(max_length=80, default="DIG")
+    process_1_title = models.CharField(max_length=80, default="SEND")
     process_1_description = models.TextField(
         max_length=320,
-        default="I find the point, the tension, and the human truth inside the raw material.",
+        default="You send me the raw footage.",
     )
-    process_2_title = models.CharField(max_length=80, default="SHAPE")
+    process_2_title = models.CharField(max_length=80, default="PLAN")
     process_2_description = models.TextField(
         max_length=320,
-        default="I build the structure, rhythm, and visual logic before polishing a single frame.",
+        default="I find the best ideas and build a storyboard.",
     )
-    process_3_title = models.CharField(max_length=80, default="MOVE")
+    process_3_title = models.CharField(max_length=80, default="EDIT")
     process_3_description = models.TextField(
         max_length=320,
-        default="Typography, motion, sound, and pacing turn the idea into an experience.",
+        default="I clean the audio and color, then edit with 100% of what I’ve got.",
     )
     process_4_title = models.CharField(max_length=80, default="DELIVER")
     process_4_description = models.TextField(
         max_length=320,
-        default="Every format is checked, finished, and ready to work wherever it lands.",
+        default="Sound design, final polish, and a clean, ready-to-post video.",
     )
 
     about_stamp = models.CharField(
@@ -193,22 +198,22 @@ class SiteContent(models.Model):
         default="STORY FIRST\nEVERY FRAME\nSTORY FIRST",
     )
     about_index = models.CharField(max_length=80, default="04 / ABOUT THE EDITOR")
-    about_title_1 = models.CharField(max_length=80, default="NOT JUST")
-    about_title_2 = models.CharField(max_length=100, default="PRETTY FRAMES.")
+    about_title_1 = models.CharField(max_length=80, default="HI, I’M")
+    about_title_2 = models.CharField(max_length=100, default="REZA.")
     about_paragraph_1 = models.TextField(
         max_length=500,
-        default="I’m a video editor and motion designer obsessed with the moment a complicated idea suddenly feels simple.",
+        default="I’m a video editor and motion designer with a year of experience, working with big pages like Earnedits.com and Metro Media House.",
     )
     about_paragraph_2 = models.TextField(
         max_length=500,
-        default="My work blends documentary instinct, editorial discipline, and bold graphic systems—always in service of the story.",
+        default="I am striving to work with very large clients, and I am learning and practicing every day.",
     )
-    stat_1_value = models.CharField(max_length=40, default="06+")
-    stat_1_label = models.CharField(max_length=100, default="YEARS CUTTING STORIES")
-    stat_2_value = models.CharField(max_length=40, default="120")
-    stat_2_label = models.CharField(max_length=100, default="PROJECTS DELIVERED")
-    stat_3_value = models.CharField(max_length=40, default="14M")
-    stat_3_label = models.CharField(max_length=100, default="ORGANIC VIEWS")
+    stat_1_value = models.CharField(max_length=40, default="1+")
+    stat_1_label = models.CharField(max_length=100, default="YEAR EDITING")
+    stat_2_value = models.CharField(max_length=40, default="2")
+    stat_2_label = models.CharField(max_length=100, default="BIG MEDIA PAGES")
+    stat_3_value = models.CharField(max_length=40, default="4")
+    stat_3_label = models.CharField(max_length=100, default="STYLES: PODCAST, SHORTS, VOX, MOTION")
 
     contact_index = models.CharField(max_length=80, default="05 / START A PROJECT")
     contact_title_1 = models.CharField(max_length=80, default="BOOK")
@@ -264,14 +269,19 @@ class SiteContent(models.Model):
 
     footer_tagline = models.CharField(
         max_length=180,
-        default="VIDEO EDITOR & MOTION DESIGNER\nAVAILABLE WORLDWIDE",
+        default="Video Editor & Motion Designer · Available worldwide",
     )
     footer_email = models.EmailField(default="hello@voxeditor.com")
-    footer_link_1_label = models.CharField(max_length=80, default="YOUTUBE")
-    footer_link_1_url = models.CharField(max_length=500, default="#work")
+    footer_link_1_label = models.CharField(max_length=80, default="LINKEDIN")
+    footer_link_1_url = models.CharField(max_length=500, default=LINKEDIN_URL)
     footer_link_2_label = models.CharField(max_length=80, default="INSTAGRAM")
-    footer_link_2_url = models.CharField(max_length=500, default="#work")
-    copyright_text = models.CharField(max_length=100, default="VOX STUDIO")
+    footer_link_2_url = models.CharField(max_length=500, default=INSTAGRAM_URL)
+    footer_note = models.CharField(
+        max_length=160,
+        default="I reply within 24 hours.",
+        help_text="Short line shown under the footer links.",
+    )
+    copyright_text = models.CharField(max_length=100, default="rz_motions")
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:

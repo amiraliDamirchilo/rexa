@@ -136,6 +136,7 @@ class SiteContentAdmin(admin.ModelAdmin):
                     "footer_email",
                     ("footer_link_1_label", "footer_link_1_url"),
                     ("footer_link_2_label", "footer_link_2_url"),
+                    "footer_note",
                     "copyright_text",
                 ),
             },

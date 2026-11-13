@@ -125,7 +125,9 @@ const makeCanvas = (w, h) => {
   c.height = h;
   return [c, c.getContext('2d')];
 };
-const setFont = (ctx, { weight = 900, size = 100, family = 'Archivo', stretch = 'extra-condensed', style = 'normal' } = {}) => {
+const setFont = (ctx, { weight = 400, size = 100, family = 'Anton', stretch = 'normal', style = 'normal' } = {}) => {
+  // Anton ships a single weight; asking for more would fake-bold it.
+  if (family === 'Anton') weight = 400;
   ctx.font = `${style} ${weight} ${size}px ${family}`;
   if ('fontStretch' in ctx) ctx.fontStretch = stretch;
 };
@@ -175,10 +177,10 @@ const loadImage = (src) => {
 const loadFonts = () => {
   total += 1;
   const fonts = [
-    '900 100px Archivo',
-    '800 100px Archivo',
-    '600 20px "IBM Plex Mono"',
-    'italic 400 100px "Instrument Serif"',
+    '400 100px Anton',
+    '400 20px Inter',
+    'italic 400 100px Inter',
+    '700 20px Satoshi',
   ];
   return Promise.race([
     Promise.all(fonts.map((f) => document.fonts.load(f))),
@@ -443,7 +445,8 @@ function buildServices() {
     { title: cfg.sa, desc: cfg.sad, body: COL.yellow, fg: HEX.ink, accent: HEX.ink },
     { title: cfg.sb, desc: cfg.sbd, body: COL.ink, fg: HEX.paper, accent: HEX.yellow },
     { title: cfg.sc, desc: cfg.scd, body: COL.paper, fg: HEX.ink, accent: HEX.ink },
-  ];
+  ].filter((it) => it.title);
+  const mid = (items.length - 1) / 2;
   const W = 4.2;
   const H = 5.6;
   const slabs = items.map((it, i) => {
@@ -453,7 +456,7 @@ function buildServices() {
 
     const [cv, cx] = makeCanvas(840, 1120);
     cx.fillStyle = it.fg;
-    setFont(cx, { weight: 600, size: 34, family: '"IBM Plex Mono"', stretch: 'normal' });
+    setFont(cx, { weight: 700, size: 34, family: 'Satoshi' });
     cx.fillStyle = it.accent;
     cx.fillText(`(0${i + 1})`, 60, 100);
     cx.fillStyle = it.fg;
@@ -464,7 +467,7 @@ function buildServices() {
       cx.fillText(w, 56, y);
       y += 150;
     });
-    setFont(cx, { weight: 400, size: 32, family: '"IBM Plex Mono"', stretch: 'normal' });
+    setFont(cx, { weight: 400, size: 32, family: 'Inter' });
     cx.globalAlpha = 0.8;
     wrapLines(cx, (it.desc || '').replace(/\s+/g, ' '), 720).slice(0, 3).forEach((l, li) => cx.fillText(l, 60, 900 + li * 46));
     cx.globalAlpha = 1;
@@ -486,11 +489,11 @@ function buildServices() {
       slabs.forEach((s, i) => {
         if (narrow) {
           s.userData.home.set(i % 2 ? 0.5 : -0.5, 1.4 - i * 3.3, 0);
-          s.userData.homeRot = (i - 1) * -0.08;
+          s.userData.homeRot = (i - mid) * -0.08;
           s.scale.setScalar(0.56);
         } else {
-          s.userData.home.set((i - 1) * 4.9, -1.5, -Math.abs(i - 1) * 0.8);
-          s.userData.homeRot = (i - 1) * -0.22;
+          s.userData.home.set((i - mid) * 4.9, -1.5, -Math.abs(i - mid) * 0.8);
+          s.userData.homeRot = (i - mid) * -0.22;
           s.scale.setScalar(0.92);
         }
       });
@@ -503,14 +506,14 @@ function buildServices() {
         const isHover = hovered && hovered.userData.slab === s;
         s.userData.lift = lerp(s.userData.lift, isHover ? 1 : 0, 0.12);
         s.position.set(
-          lerp(home.x + (i - 1) * 6, home.x, k),
+          lerp(home.x + (i - mid) * 6, home.x, k),
           lerp(home.y - 9, home.y, k) + Math.sin(time * 0.9 + i) * 0.12 + s.userData.lift * 0.5,
           home.z + s.userData.lift * 1.2,
         );
         s.rotation.set(
           lerp(-1.2, 0, k) + pointerSmooth.y * 0.12 * s.userData.lift,
           lerp(Math.PI * (i % 2 ? 1 : -1), homeRot, k) + pointerSmooth.x * 0.2 * s.userData.lift,
-          lerp(0.6 * (i - 1), 0, k),
+          lerp(0.6 * (i - mid), 0, k),
         );
       });
     },
@@ -568,7 +571,7 @@ function buildWork(thumbs) {
     // Title card under each frame
     const [tv, tx] = makeCanvas(600, 150);
     tx.fillStyle = HEX.yellow;
-    setFont(tx, { weight: 600, size: 26, family: '"IBM Plex Mono"', stretch: 'normal' });
+    setFont(tx, { weight: 700, size: 26, family: 'Satoshi' });
     tx.fillText(String((k % list.length) + 1).padStart(2, '0'), 4, 34);
     tx.fillStyle = HEX.paper;
     const title = (proj.title || '').toUpperCase();
@@ -847,7 +850,7 @@ function buildContact() {
   cx.fillStyle = HEX.ink;
   fitFont(cx, cfg.brand.toUpperCase(), 1080, { weight: 900, size: 420, stretch: 'normal' });
   cx.fillText(cfg.brand.toUpperCase(), 80, 470);
-  setFont(cx, { weight: 600, size: 34, family: '"IBM Plex Mono"', stretch: 'normal' });
+  setFont(cx, { weight: 700, size: 34, family: 'Satoshi' });
   cx.fillText('SCENE', 80, 630);
   cx.fillText('TAKE', 660, 630);
   setFont(cx, { weight: 900, size: 170 });

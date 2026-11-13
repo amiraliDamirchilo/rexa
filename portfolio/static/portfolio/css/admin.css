@@ -63,7 +63,7 @@ body {
     radial-gradient(circle at 25% 15%, rgba(0, 0, 0, .035) 0 1px, transparent 1.5px),
     repeating-linear-gradient(3deg, transparent 0 8px, rgba(30, 20, 10, .015) 9px 10px);
   background-size: 10px 12px, auto;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
 }
 
 #header {
@@ -82,7 +82,8 @@ body {
 }
 
 #site-name strong {
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: "Anton", Impact, "Arial Narrow", sans-serif;
+  font-weight: 400;
   font-size: 42px;
   line-height: .8;
   letter-spacing: -2px;
@@ -90,6 +91,7 @@ body {
 
 #site-name span,
 .admin-studio-note {
+  font-family: "Satoshi", "Inter", sans-serif;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -112,7 +114,8 @@ div.breadcrumbs {
 
 #content h1 {
   margin: 0 0 28px;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: "Anton", Impact, "Arial Narrow", sans-serif;
+  font-weight: 400;
   font-size: clamp(42px, 5vw, 72px);
   line-height: .9;
   letter-spacing: -1px;
@@ -135,7 +138,8 @@ fieldset.module > h2 {
   padding: 13px 16px;
   color: #f0e9dc;
   background: #161713;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: "Anton", Impact, "Arial Narrow", sans-serif;
+  font-weight: 400;
   font-size: 18px;
   letter-spacing: .7px;
   text-transform: uppercase;
